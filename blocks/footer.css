@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  height: 16px;
+  margin-top: 60px;
+  padding-bottom: 60px;
+  font-family: "poppin", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
