@@ -14,4 +14,4 @@ project description: create a page where you can add your own details to make pa
 
 this webpage is being add to the github pages
 
--Adding deploy link
+-Adding deploy link - https://markocmb.github.io/se_project_spots/
