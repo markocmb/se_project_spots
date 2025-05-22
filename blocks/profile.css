@@ -61,11 +61,12 @@
 }
 
 .profile__add-button {
+  gap: 8px;
   margin-left: auto;
   padding: 0;
   width: 157px;
   height: 52px;
-  background-color: #212121;
+  background-color: black;
   color: #fcf5e5;
   border-radius: 8px;
   align-self: end;
@@ -77,11 +78,11 @@
 }
 
 .profile__edit-button:hover {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .profile__add-button:hover {
-  opacity: 0.5;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 627px) {
@@ -121,7 +122,7 @@
     justify-content: center;
     margin: 0;
     width: 100%;
-    background-color: black;
+
     color: #fcf5e5;
   }
 }
