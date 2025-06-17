@@ -51,3 +51,13 @@ function handleEditprofileSubmit(evt) {
 }
 
 editprofileform.addEventListener("submit", handleEditprofileSubmit);
+
+function handleAddCardSubmit(evt) {
+  evt.preventDefault();
+
+  console.log("Image Link:", imageLinkInput.value);
+  console.log("Caption:", captionInput.value);
+
+  modal.classList.remove("modal_open");
+  newpostform.addEventListener("submit", handleAddCardSubmit);
+}
