@@ -62,5 +62,6 @@ function handleAddCardSubmit(evt) {
   console.log("Caption:", newPostTextInput.value);
 
   closeModal(newPostModal);
+  newPostForm.reset();
 }
 newPostForm.addEventListener("submit", handleAddCardSubmit);
