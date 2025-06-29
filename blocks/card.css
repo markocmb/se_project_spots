@@ -9,6 +9,12 @@
   border-radius: 8px;
   object-fit: cover;
   display: block;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.card__image:hover {
+  opacity: 0.85;
 }
 
 .card__content {
