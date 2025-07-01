@@ -41,7 +41,7 @@
   color: #212121;
   background-image: url(../images/Xicon.svg);
   background-color: transparent;
-  background-size: 24px 24px;
+  background-size: 35px 35px;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
@@ -56,7 +56,7 @@
   top: 0;
   right: -50.5px;
   color: #ffffff;
-  background: url(../images/Close\ Icon.svg);
+  background: url(../images/Close\ Icon.svg) no-repeat;
 }
 
 .modal__close-button_type_preview:hover {
@@ -124,8 +124,6 @@
 
 .modal__image-container {
   position: relative;
-  max-width: 80vw;
-  max-height: 80vh;
   background-color: transparent;
   padding: 0;
   display: flex;
@@ -169,13 +167,13 @@
   }
 
   .modal__close-button {
-    top: -10px;
+    top: 12px;
     right: 12px;
   }
 
-  .modal__image-container {
-    padding: 32px 20px;
-    position: relative;
+  .modal__close-button_type_preview {
+    top: -30px;
+    right: 0px;
   }
 
   .modal__image {
@@ -202,7 +200,7 @@
   }
 
   .modal__close-button_type_preview {
-    top: -10px;
-    right: 8px;
+    top: -30px;
+    right: 0px;
   }
 }
