@@ -1,10 +1,31 @@
+// ---------- Modal Utility Functions ----------
+
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
+  document.addEventListener("keydown", handleEscClose);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
+  document.removeEventListener("keydown", handleEscClose);
 }
+
+function handleEscClose(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_is-opened");
+    if (openedModal) closeModal(openedModal);
+  }
+}
+
+document.querySelectorAll(".modal").forEach((modal) => {
+  modal.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("modal")) {
+      closeModal(modal);
+    }
+  });
+});
+
+// ---------- Preview Modal Setup ----------
 
 const previewModal = document.querySelector("#preview-modal");
 const previewImage = previewModal.querySelector(".modal__image");
@@ -14,6 +35,8 @@ const previewCloseButton = previewModal.querySelector(".modal__close-button");
 previewCloseButton.addEventListener("click", () => {
   closeModal(previewModal);
 });
+
+// ---------- Card Template & Rendering ----------
 
 const initialCards = [
   {
@@ -86,6 +109,8 @@ initialCards.forEach((cardData) => {
   cardsList.prepend(card);
 });
 
+// ---------- Edit Profile Modal Setup ----------
+
 const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const editProfileCloseButton = editProfileModal.querySelector(
@@ -96,13 +121,16 @@ const editProfileNameInput = document.querySelector("#profile-name-input");
 const editProfileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
 
 editProfileButton.addEventListener("click", () => {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+  resetValidationErrors(editProfileForm, [
+    editProfileNameInput,
+    editProfileDescriptionInput,
+  ]); // ✅ Clear errors + button state
   openModal(editProfileModal);
 });
 
@@ -116,6 +144,21 @@ editProfileForm.addEventListener("submit", (evt) => {
   profileDescriptionEl.textContent = editProfileDescriptionInput.value;
   closeModal(editProfileModal);
 });
+
+editProfileButton.addEventListener("click", () => {
+  editProfileNameInput.value = profileNameEl.textContent;
+  editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+
+  resetValidationErrors(editProfileForm); // ✅ Make sure this is included
+  const inputList = Array.from(
+    editProfileForm.querySelectorAll(".modal__input")
+  );
+  const buttonEl = editProfileForm.querySelector(".modal__submit-button");
+  toggleButtonState(inputList, buttonEl); // re-evaluate based on filled inputs
+  openModal(editProfileModal);
+});
+
+// ---------- New Post Modal Setup ----------
 
 const newPostButton = document.querySelector(".profile__new-post-button");
 const newPostModal = document.querySelector("#new-post-modal");
@@ -142,5 +185,6 @@ newPostForm.addEventListener("submit", (evt) => {
   cardsList.prepend(newCard);
 
   newPostForm.reset();
+  resetValidationErrors(newPostForm, [newPostCardImageInput, newPostTextInput]); // ✅ Reset errors + disable button
   closeModal(newPostModal);
 });
