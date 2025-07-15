@@ -5,7 +5,7 @@ const settings = {
   submitButtonSelector: ".modal__submit-button",
   inactiveButtonClass: "modal__submit-button_disabled",
   inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible", // Optional — make sure it's defined in CSS
+  errorClass: "modal__error_visible",
 };
 
 // Show validation error
