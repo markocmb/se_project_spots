@@ -1,5 +1,4 @@
-// Configuration object
-const settings = {
+const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit-button",
@@ -31,6 +30,10 @@ function checkInputValidity(formEl, inputEl, config) {
   }
 }
 
+function resetValidationErrors(formEl) {
+  const inputList = Array.from(formEl.querySelectorAll(".modal__input"));
+}
+
 // Check if any input is invalid
 function hasInvalidInput(inputList) {
   return inputList.some((inputEl) => !inputEl.validity.valid);
@@ -40,7 +43,7 @@ function hasInvalidInput(inputList) {
 function toggleButtonState(inputList, buttonEl, config) {
   const isInvalid = hasInvalidInput(inputList);
   buttonEl.disabled = isInvalid;
-  buttonEl.classList.toggle(config.inactiveButtonClass, isInvalid);
+  buttonEl.classList.toggle(config.inactiveButtonClass);
 }
 
 // Set listeners and initial button state
@@ -51,7 +54,7 @@ function setEventListeners(formEl, config) {
   toggleButtonState(inputList, buttonEl, config);
 
   inputList.forEach((inputEl) => {
-    inputEl.addEventListener("input", () => {
+    inputEl.addEventListener("input", function () {
       checkInputValidity(formEl, inputEl, config);
       toggleButtonState(inputList, buttonEl, config);
     });
@@ -67,4 +70,4 @@ function enableValidation(config) {
 }
 
 // Initialize validation
-enableValidation(settings);
+enableValidation(config);

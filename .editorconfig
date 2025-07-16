@@ -36,3 +36,4 @@ insert_final_newline = true
 # Dot settings
 project_name = se_project_spots
 required_files = index.html,styles/style.css
+
