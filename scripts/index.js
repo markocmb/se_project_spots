@@ -1,5 +1,7 @@
 // ---------- Modal Utility Functions ----------
 
+// ---------- Modal Utility Functions ----------
+
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
   document.addEventListener("keydown", handleEscClose);
@@ -72,7 +74,6 @@ const initialCards = [
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
-
 const cardsList = document.querySelector(".cards__list");
 
 function getCardElement(data) {
@@ -132,7 +133,6 @@ editProfileCloseButton.addEventListener("click", () => {
 editProfileForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   profileNameEl.textContent = editProfileNameInput.value;
-
   profileDescriptionEl.textContent = editProfileDescriptionInput.value;
   closeModal(editProfileModal);
 });
@@ -140,12 +140,14 @@ editProfileForm.addEventListener("submit", (evt) => {
 editProfileButton.addEventListener("click", () => {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
-  resetValidationErrors(editProfileForm);
+
+  resetValidationErrors(editProfileForm, config);
   const inputList = Array.from(
-    editProfileForm.querySelectorAll(".modal__input")
+    editProfileForm.querySelectorAll(config.inputSelector)
   );
-  const buttonEl = editProfileForm.querySelector(".modal__submit-button");
-  toggleButtonState(inputList, buttonEl, editProfileModal);
+  const buttonEl = editProfileForm.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, buttonEl, config);
+
   openModal(editProfileModal);
 });
 
@@ -159,6 +161,12 @@ const newPostCardImageInput = document.querySelector("#card-image-input");
 const newPostTextInput = document.querySelector("#text-input");
 
 newPostButton.addEventListener("click", () => {
+  resetValidationErrors(newPostForm, config);
+  const inputList = Array.from(
+    newPostForm.querySelectorAll(config.inputSelector)
+  );
+  const buttonEl = newPostForm.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, buttonEl, config);
   openModal(newPostModal);
 });
 
@@ -176,6 +184,12 @@ newPostForm.addEventListener("submit", (evt) => {
   cardsList.prepend(newCard);
 
   newPostForm.reset();
-  resetValidationErrors(newPostForm, [newPostCardImageInput, newPostTextInput]); // ✅ Reset errors + disable button
+  resetValidationErrors(newPostForm, config);
+  const inputList = Array.from(
+    newPostForm.querySelectorAll(config.inputSelector)
+  );
+  const buttonEl = newPostForm.querySelector(config.submitButtonSelector);
+  toggleButtonState(inputList, buttonEl, config);
+
   closeModal(newPostModal);
 });

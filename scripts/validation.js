@@ -1,3 +1,5 @@
+// ---------- Configuration ----------
+
 const config = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
@@ -7,21 +9,22 @@ const config = {
   errorClass: "modal__error_visible",
 };
 
-// Show validation error
+// ---------- Show / Hide Validation Errors ----------
+
 function showInputError(formEl, inputEl, errorMsg, config) {
   const errorEl = formEl.querySelector(`#${inputEl.id}-error`);
   errorEl.textContent = errorMsg;
   inputEl.classList.add(config.inputErrorClass);
 }
 
-// Hide validation error
 function hideInputError(formEl, inputEl, config) {
   const errorEl = formEl.querySelector(`#${inputEl.id}-error`);
   errorEl.textContent = "";
   inputEl.classList.remove(config.inputErrorClass);
 }
 
-// Validate single input
+// ---------- Individual Input Validation ----------
+
 function checkInputValidity(formEl, inputEl, config) {
   if (!inputEl.validity.valid) {
     showInputError(formEl, inputEl, inputEl.validationMessage, config);
@@ -30,23 +33,35 @@ function checkInputValidity(formEl, inputEl, config) {
   }
 }
 
-function resetValidationErrors(formEl) {
-  const inputList = Array.from(formEl.querySelectorAll(".modal__input"));
+// ---------- Reset All Validation Errors ----------
+
+function resetValidationErrors(formEl, config) {
+  const inputList = Array.from(formEl.querySelectorAll(config.inputSelector));
+  inputList.forEach((inputEl) => {
+    hideInputError(formEl, inputEl, config);
+  });
 }
 
-// Check if any input is invalid
+// ---------- Toggle Submit Button State ----------
+
 function hasInvalidInput(inputList) {
   return inputList.some((inputEl) => !inputEl.validity.valid);
 }
 
-// Toggle submit button state
 function toggleButtonState(inputList, buttonEl, config) {
   const isInvalid = hasInvalidInput(inputList);
-  buttonEl.disabled = isInvalid;
-  buttonEl.classList.toggle(config.inactiveButtonClass);
+
+  if (isInvalid) {
+    buttonEl.disabled = true;
+    buttonEl.classList.add(config.inactiveButtonClass);
+  } else {
+    buttonEl.disabled = false;
+    buttonEl.classList.remove(config.inactiveButtonClass);
+  }
 }
 
-// Set listeners and initial button state
+// ---------- Form Event Listeners ----------
+
 function setEventListeners(formEl, config) {
   const inputList = Array.from(formEl.querySelectorAll(config.inputSelector));
   const buttonEl = formEl.querySelector(config.submitButtonSelector);
@@ -54,14 +69,15 @@ function setEventListeners(formEl, config) {
   toggleButtonState(inputList, buttonEl, config);
 
   inputList.forEach((inputEl) => {
-    inputEl.addEventListener("input", function () {
+    inputEl.addEventListener("input", () => {
       checkInputValidity(formEl, inputEl, config);
       toggleButtonState(inputList, buttonEl, config);
     });
   });
 }
 
-// Enable validation on all matching forms
+// ---------- Enable Validation ----------
+
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((formEl) => {
@@ -69,5 +85,6 @@ function enableValidation(config) {
   });
 }
 
-// Initialize validation
+// ---------- Initialize Validation ----------
+
 enableValidation(config);
